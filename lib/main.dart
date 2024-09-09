@@ -54,6 +54,9 @@ class MyAppState extends State<MyApp> {
                   color: (index % 2 == 0 ? Colors.blue : Colors.green),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
+                child: ListTile(
+                  title: Text("Nome: $user"),
+                ),
               );
             },
           )),
