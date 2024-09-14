@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -48,16 +47,36 @@ class MyAppState extends State<MyApp> {
             itemBuilder: (BuildContext context, int index) {
               final user = userList[index];
               return Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: (index % 2 == 0 ? Colors.blue : Colors.green),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: ListTile(
-                  title: Text("Nome: $user"),
-                ),
-              );
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: (index % 2 == 0 ? Colors.blue : Colors.green),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ListTile(
+                    title: Text("Nome: ${user['name']}"),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Nome de usuário: ${user['username']}"),
+                        Text("Email: ${user['email']}"),
+                        Text("Endereço:"),
+                        Text("  Rua: ${user['address']['street']}"),
+                        Text("  Suite: ${user['address']['suite']}"),
+                        Text("  Cidade: ${user['address']['city']}"),
+                        Text("  CEP: ${user['address']['zipcode']}"),
+                        Text("  Geo:"),
+                        Text("    Lat: ${user['address']['geo']['lat']}"),
+                        Text("    Lng: ${user['address']['geo']['lng']}"),
+                        Text("Telefone: ${user['phone']}"),
+                        Text("Website: ${user['website']}"),
+                        Text("Empresa:"),
+                        Text("  Nome: ${user['company']['name']}"),
+                        Text("  Slogan: ${user['company']['catchPhrase']}"),
+                        Text("  Área de atuação: ${user['company']['bs']}"),
+                      ],
+                    ),
+                  ));
             },
           )),
     );
