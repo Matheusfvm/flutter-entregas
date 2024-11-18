@@ -42,7 +42,7 @@ class _CrudPageState extends State<CrudPage> {
   Future<void> _get() async {
     try {
       final response = await http.get(
-        Uri.parse("http://10.0.2.2/api/testeApi.php/cliente/list"),
+        Uri.parse("http://localhost/api/testeApi.php/cliente/list"),
         headers: {"Content-Type": "application/json"},
       );
 
@@ -76,7 +76,7 @@ class _CrudPageState extends State<CrudPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(data['message'] ?? 'Erro inesperado'),
       ));
-      _get(); // Atualiza a tabela após adicionar
+      _get();
     } catch (e) {
       print("Erro ao executar solicitação POST: $e");
     }
@@ -98,7 +98,7 @@ class _CrudPageState extends State<CrudPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(data['message'] ?? 'Erro inesperado'),
       ));
-      _get(); // Atualiza a tabela após editar
+      _get();
     } catch (e) {
       print("Erro ao executar solicitação PUT: $e");
     }
@@ -115,7 +115,7 @@ class _CrudPageState extends State<CrudPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(data['message'] ?? 'Erro inesperado'),
       ));
-      _get(); // Atualiza a tabela após excluir
+      _get();
     } catch (e) {
       print("Erro ao executar solicitação DELETE: $e");
     }
@@ -170,11 +170,24 @@ class _CrudPageState extends State<CrudPage> {
                 itemCount: tableData.length,
                 itemBuilder: (context, index) {
                   final item = tableData[index];
-                  return ListTile(
-                    title: Text('${item['id']}: ${item['nome']}'),
-                    subtitle: Text('Categoria: ${item['categoria']}'),
-                    onTap: () => _selectRow(item),
-                  );
+                  return Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        title: Text('ID do item: ${item['id']}'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Nome do item: ${item['nome']}'),
+                            Text('Categoria do item: ${item['categoria']}')
+                          ],
+                        ),
+                        onTap: () => _selectRow(item),
+                      ));
                 },
               ),
             ),
